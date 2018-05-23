@@ -1,8 +1,11 @@
 import json
 from datetime import datetime
 from restapi.time_range import TimeRange
+import calendar
+import pytz
 
 rates = {}
+
 
 def read_json():
     config = {}
@@ -19,12 +22,15 @@ def parse_config(config):
 def parse_rate(rate):
     days_for_rate = rate['days'].split(',')
     times = rate['times'].split('-')
-    start_time = datetime.strptime(times[0], '%H%M')
-    end_time = datetime.strptime(times[1], '%H%M')
+    start_time = datetime.strptime(times[0], '%H%M').replace(tzinfo=pytz.UTC)
+    end_time = datetime.strptime(times[1], '%H%M').replace(tzinfo=pytz.UTC)
     time_range = TimeRange(start_time, end_time)
     for day in days_for_rate:
-        rates[datetime.strptime(day[:3], '%a').day][time_range] = rate['price']
+        day_of_week = list(calendar.day_abbr).index(day[:3].capitalize())
+        rates[day_of_week][time_range] = rate['price']
 
-for day_num in range(7):
-    rates[day_num] = {}
+
+for day in range(7):
+    rates[day] = {}
 read_json()
+print rates
