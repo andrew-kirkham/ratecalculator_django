@@ -8,30 +8,30 @@ from rest_framework.response import Response
 from restapi.serializers import RateListSerializer, RateQuerySerializer, RateRequestSerializer
 from rest_framework.views import APIView
 from rest_framework import status
-
+from restapi.handlers import RateHandler
 
 # Create your views here.
+
+
 class RateList(generics.ListAPIView):
     queryset = Rate.objects.all()
     serializer_class = RateListSerializer
 
 
 class RateQuery(APIView):
-    def get(self, request, format=None):
-        #validate that the query params are date time
-        qps = RateRequestSerializer(data=request.query_params)
-        print qps.is_valid()
-        if not qps.is_valid():
-            return Response(data=qps.errors, status=status.HTTP_400_BAD_REQUEST)
+    rate_handler = RateHandler()
 
-        print qps.data
-        rate = Rate.objects.get(pk=1)
-        serializer = RateQuerySerializer(rate)
-        return Response(serializer.data)
+    def get(self, request, format=None):
+        return self._handle_request(request.query_params)
 
     def post(self, request, format=None):
-        serializer = RateRequestSerializer(data=request.data)
+        return self._handle_request(request.data)
+
+    def _handle_request(self, data):
+        serializer = RateRequestSerializer(data=data)
         if not serializer.is_valid():
             return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        return Response("donezo")
+        start_time = serializer.validated_data['start']
+        end_time = serializer.validated_data['end']
+        return self.rate_handler.handle_request(start_time, end_time)
