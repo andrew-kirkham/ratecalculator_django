@@ -33,4 +33,3 @@ def parse_rate(rate):
 for day in range(7):
     rates[day] = {}
 read_json()
-print rates
