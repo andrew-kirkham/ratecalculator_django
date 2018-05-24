@@ -2,12 +2,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from restapi.config import rates
 from restapi.time_range import TimeRange
-from restapi.exceptions import NoRateFoundException
+from restapi.exceptions import NoRateFoundException, InvalidRangeException
 
 class RateHandler():
-
-    # dict[int_dow][] = price
-    rate_dict = {}
 
     def handle_request(self, start_time, end_time):
         """Handle an incoming request for a rate.
@@ -25,7 +22,7 @@ class RateHandler():
         print start_time
         print end_time
         if not self.validate_time(start_time, end_time):
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            raise InvalidRangeException
 
         return Response(self.get_rate_for_request(start_time, end_time))
 

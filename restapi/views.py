@@ -12,6 +12,8 @@ from restapi.config import config
 from rest_framework.compat import coreschema
 from rest_framework.schemas import AutoSchema
 from coreapi import Field
+from rest_framework.parsers import JSONParser
+from rest_framework_xml.parsers import XMLParser
 
 
 class RateList(APIView):
@@ -19,7 +21,6 @@ class RateList(APIView):
         """Get all the rates configured
 
         Arguments:
-            APIView {APIView} -- [description]
             request {request} -- the HTTP request
 
         Keyword Arguments:
@@ -31,7 +32,9 @@ class RateList(APIView):
 
         return Response(config)
 
+
 class RateQuery(APIView):
+    parser_classes = (JSONParser, XMLParser)
     schema = AutoSchema(manual_fields=[
         Field(
             "start",
@@ -46,8 +49,26 @@ class RateQuery(APIView):
     ])
     rate_handler = RateHandler()
 
-    def get(self, request, format=None):
+    def get(self, request):
         """Get the rate for a given date range
+        This is the GET version which accepts query params
+
+        Arguments:
+            request {[type]} -- [description]
+
+        Returns:
+            integer -- the rate for the given range
+
+        Responses:
+            200 -- OK
+            404 -- No rate found for range
+        """
+
+        return self._handle_request(request.query_params)
+
+    def post(self, request, format=None):
+        """Get the rate for a given date range
+        This is the POST equivalent that accepts a json/xml format
 
         Arguments:
             request {[type]} -- [description]
@@ -62,10 +83,6 @@ class RateQuery(APIView):
             200 -- OK
             404 -- No rate found for range
         """
-
-        return self._handle_request(request.query_params)
-
-    def post(self, request, format=None):
         return self._handle_request(request.data)
 
     def _handle_request(self, data):
