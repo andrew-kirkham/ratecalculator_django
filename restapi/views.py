@@ -2,10 +2,9 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
-from restapi.models import Rate
 from rest_framework import generics
 from rest_framework.response import Response
-from restapi.serializers import RateListSerializer, RateQuerySerializer, RateRequestSerializer
+from restapi.serializers import RateRequestSerializer
 from rest_framework.views import APIView
 from rest_framework import status
 from restapi.rate_handler import RateHandler
