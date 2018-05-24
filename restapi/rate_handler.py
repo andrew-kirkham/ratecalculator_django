@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from restapi.config import rates
 from restapi.time_range import TimeRange
+from restapi.exceptions import NoRateFoundException
 
 class RateHandler():
 
@@ -17,7 +18,7 @@ class RateHandler():
             end_time {datetime} -- end time of the request
 
         Returns:
-            Response -- Resposne object with a body containing the rate
+            Response -- Response object with a body containing the rate
         """
 
         # validate that the query params are date time
@@ -62,4 +63,4 @@ class RateHandler():
         for rate in rates_for_day.keys():
             if rate.contains_range(requested_range):
                 return rates_for_day[rate]
-        return 0
+        raise NoRateFoundException

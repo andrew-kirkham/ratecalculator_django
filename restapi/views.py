@@ -8,20 +8,62 @@ from rest_framework.response import Response
 from restapi.serializers import RateListSerializer, RateQuerySerializer, RateRequestSerializer
 from rest_framework.views import APIView
 from rest_framework import status
-from restapi.handlers import RateHandler
+from restapi.rate_handler import RateHandler
+from restapi.config import config
+from rest_framework.compat import coreschema
+from rest_framework.schemas import AutoSchema
+from coreapi import Field
 
-# Create your views here.
 
+class RateList(APIView):
+    def get(self, request, format=None):
+        """Get all the rates configured
 
-class RateList(generics.ListAPIView):
-    queryset = Rate.objects.all()
-    serializer_class = RateListSerializer
+        Arguments:
+            APIView {APIView} -- [description]
+            request {request} -- the HTTP request
 
+        Keyword Arguments:
+            format {format} -- Format to return the rates in (default: {None})
+
+        Returns:
+            Response -- a Response containing the configured rates
+        """
+
+        return Response(config)
 
 class RateQuery(APIView):
+    schema = AutoSchema(manual_fields=[
+        Field(
+            "start",
+            required=True,
+            schema=coreschema.String()
+        ),
+        Field(
+            "end",
+            required=True,
+            schema=coreschema.String()
+        )
+    ])
     rate_handler = RateHandler()
 
     def get(self, request, format=None):
+        """Get the rate for a given date range
+
+        Arguments:
+            request {[type]} -- [description]
+
+        Keyword Arguments:
+            format {[type]} -- [description] (default: {None})
+
+        Returns:
+            integer -- the rate for the given range
+
+        Responses:
+            200 -- OK
+            404 -- No rate found for range
+        """
+
         return self._handle_request(request.query_params)
 
     def post(self, request, format=None):

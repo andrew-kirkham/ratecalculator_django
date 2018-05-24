@@ -5,13 +5,7 @@ import calendar
 import pytz
 
 rates = {}
-
-
-def read_json():
-    config = {}
-    with open("./restapi/rates.json") as f:
-        config = json.load(f)
-    parse_config(config['rates'])
+config = {}
 
 
 def parse_config(config):
@@ -32,4 +26,7 @@ def parse_rate(rate):
 
 for day in range(7):
     rates[day] = {}
-read_json()
+
+with open("./restapi/rates.json") as f:
+    config = json.load(f)
+parse_config(config['rates'])
