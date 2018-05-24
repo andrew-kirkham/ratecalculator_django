@@ -1,7 +1,8 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+# /usr/bin/python
+"""
+"""
 
-import django
+from __future__ import unicode_literals
 from django.apps import AppConfig
 
 

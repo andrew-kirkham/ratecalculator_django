@@ -1,23 +1,21 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render
-from rest_framework import generics
-from rest_framework.response import Response
-from restapi.serializers import RateRequestSerializer
-from rest_framework.views import APIView
+from coreapi import Field
 from rest_framework import status
-from restapi.rate_handler import RateHandler
-from restapi.config import config
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework.compat import coreschema
 from rest_framework.schemas import AutoSchema
-from coreapi import Field
 from rest_framework.parsers import JSONParser
 from rest_framework_xml.parsers import XMLParser
+from restapi.serializers import RateRequestSerializer
+from restapi.rate_handler import RateHandler
+from restapi.config import config
 
 
 class RateList(APIView):
-    def get(self, request, format=None):
+    def get(self, request):
         """Get all the rates configured
 
         Arguments:
@@ -66,7 +64,7 @@ class RateQuery(APIView):
 
         return self._handle_request(request.query_params)
 
-    def post(self, request, format=None):
+    def post(self, request):
         """Get the rate for a given date range
         This is the POST equivalent that accepts a json/xml format
 

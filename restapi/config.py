@@ -1,8 +1,8 @@
 import json
-from datetime import datetime
-from restapi.time_range import TimeRange
 import calendar
 import pytz
+from datetime import datetime
+from restapi.time_range import TimeRange
 
 rates = {}
 config = {}

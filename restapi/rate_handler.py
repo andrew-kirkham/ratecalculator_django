@@ -1,10 +1,13 @@
+import logging
 from rest_framework.response import Response
-from rest_framework import status
 from restapi.config import rates
 from restapi.time_range import TimeRange
 from restapi.exceptions import NoRateFoundException, InvalidRangeException
 
-class RateHandler():
+LOGGER = logging.getLogger(__name__)
+
+
+class RateHandler(object):
 
     def handle_request(self, start_time, end_time):
         """Handle an incoming request for a rate.
@@ -19,14 +22,13 @@ class RateHandler():
         """
 
         # validate that the query params are date time
-        print start_time
-        print end_time
+        LOGGER.debug("start_time=%s, end_time=%s", start_time, end_time)
         if not self.validate_time(start_time, end_time):
             raise InvalidRangeException
 
         return Response(self.get_rate_for_request(start_time, end_time))
 
-    def validate_time(self,  start_time, end_time):
+    def validate_time(self, start_time, end_time):
         """validate the requested time range
 
         Arguments:
@@ -59,5 +61,7 @@ class RateHandler():
         requested_range = TimeRange(start_time, end_time)
         for rate in rates_for_day.keys():
             if rate.contains_range(requested_range):
+                LOGGER.info('rate=%s found for time_range=%s',
+                            rates_for_day[rate], str(requested_range))
                 return rates_for_day[rate]
         raise NoRateFoundException
