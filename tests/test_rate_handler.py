@@ -2,7 +2,7 @@
 from datetime import datetime
 from restapi.rate_handler import RateHandler
 from django.test import TestCase
-from restapi.exceptions import NoRateFoundException, InvalidRangeException
+from restapi.exceptions.http_exceptions import NoRateFoundException, InvalidRangeException
 
 SIX_AM = datetime(2000, 1, 1, hour=6)
 NOON = datetime(2000, 1, 1, hour=12)

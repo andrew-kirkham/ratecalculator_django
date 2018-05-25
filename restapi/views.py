@@ -9,7 +9,7 @@ from rest_framework.compat import coreschema
 from rest_framework.schemas import AutoSchema
 from rest_framework.parsers import JSONParser
 from rest_framework_xml.parsers import XMLParser
-from restapi.serializers import RateRequestSerializer
+from restapi.serializers.rate_request_serializer import RateRequestSerializer
 from restapi.rate_handler import RateHandler
 from restapi.config import config
 

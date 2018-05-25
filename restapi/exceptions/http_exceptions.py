@@ -1,3 +1,4 @@
+# /usr/bin/python
 from rest_framework.exceptions import APIException
 
 
