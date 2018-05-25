@@ -7,6 +7,11 @@ from restapi.models.time_range import TimeRange
 rates = {}
 config = {}
 
+def read_file():
+    with open("./restapi/rates.json") as f:
+        config = json.load(f)
+    parse_config(config['rates'])
+
 
 def parse_config(config):
     for rate in config:
@@ -27,6 +32,4 @@ def parse_rate(rate):
 for day in range(7):
     rates[day] = {}
 
-with open("./restapi/rates.json") as f:
-    config = json.load(f)
-parse_config(config['rates'])
+read_file()

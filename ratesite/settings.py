@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_xml',
     'rest_framework_swagger',
-    'restapi.apps.RestApiConfig',
 ]
 
 MIDDLEWARE = [
