@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+djangorestframework = "*"
+django-rest-swagger = "*"
+coreapi = "*"
+Django = "*"
+
+[dev-packages]
+dicttoxml = "*"
+
+[requires]
+python_version = "2.7"
