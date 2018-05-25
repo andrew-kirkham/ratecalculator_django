@@ -1,9 +1,12 @@
 # /usr/bin/python
 from __future__ import unicode_literals
 
+import logging
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from restapi.config import config
+
+LOGGER = logging.getLogger(__name__)
 
 
 class RateList(APIView):
@@ -19,5 +22,5 @@ class RateList(APIView):
         Returns:
             Response -- a Response containing the configured rates
         """
-
+        LOGGER.debug('request for rate config received')
         return Response(config)
