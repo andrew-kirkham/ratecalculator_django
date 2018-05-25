@@ -1,5 +1,5 @@
 
-from restapi.time_range import TimeRange
+from restapi.models.time_range import TimeRange
 from datetime import datetime
 from django.test import TestCase
 

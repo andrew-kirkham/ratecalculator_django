@@ -2,7 +2,7 @@
 import logging
 from rest_framework.response import Response
 from restapi.config import rates
-from restapi.time_range import TimeRange
+from restapi.models.time_range import TimeRange
 from restapi.exceptions.http_exceptions import NoRateFoundException, InvalidRangeException
 
 LOGGER = logging.getLogger(__name__)
