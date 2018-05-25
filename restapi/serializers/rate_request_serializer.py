@@ -1,3 +1,4 @@
+# /usr/bin/python
 from rest_framework import serializers
 
 class RateRequestSerializer(serializers.Serializer):
