@@ -18,7 +18,7 @@ class RateQueryHandlerTest(TestCase):
 
     def test_validate_same_start_end_time(self):
         is_valid = handler.validate_time(start_time = SIX_AM, end_time =  SIX_AM)
-        self.assertTrue(is_valid)
+        self.assertFalse(is_valid)
 
     def test_validate_time_invalid(self):
         is_valid = handler.validate_time(start_time = NOON, end_time = SIX_AM)
