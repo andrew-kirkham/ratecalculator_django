@@ -10,7 +10,7 @@ from rest_framework.schemas import AutoSchema
 from rest_framework.parsers import JSONParser
 from rest_framework_xml.parsers import XMLParser
 from restapi.serializers.rate_request_serializer import RateRequestSerializer
-from restapi.rate_handler import RateHandler
+from restapi.handlers.rate_query_handler import RateQueryHandler
 
 
 class RateQuery(APIView):
@@ -27,7 +27,7 @@ class RateQuery(APIView):
             schema=coreschema.String()
         )
     ])
-    rate_handler = RateHandler()
+    rate_handler = RateQueryHandler()
 
     def get(self, request):
         """Get the rate for a given date range

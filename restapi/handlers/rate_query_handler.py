@@ -8,7 +8,7 @@ from restapi.exceptions.http_exceptions import NoRateFoundException, InvalidRang
 LOGGER = logging.getLogger(__name__)
 
 
-class RateHandler(object):
+class RateQueryHandler(object):
 
     def handle_request(self, start_time, end_time):
         """Handle an incoming request for a rate.

@@ -1,6 +1,6 @@
 
 from datetime import datetime
-from restapi.rate_handler import RateHandler
+from restapi.handlers.rate_query_handler import RateQueryHandler
 from django.test import TestCase
 from restapi.exceptions.http_exceptions import NoRateFoundException, InvalidRangeException
 
@@ -8,9 +8,9 @@ SIX_AM = datetime(2000, 1, 1, hour=6)
 NOON = datetime(2000, 1, 1, hour=12)
 ELEVEN_PM = datetime(2000, 1, 1, hour=23)
 NOON_TMRW = datetime(2000, 1, 2, hour=12)
-handler = RateHandler()
+handler = RateQueryHandler()
 
-class TimeRangeTest(TestCase):
+class RateQueryHandlerTest(TestCase):
 
     def test_validate_time(self):
         is_valid = handler.validate_time(start_time = SIX_AM, end_time =  NOON)
