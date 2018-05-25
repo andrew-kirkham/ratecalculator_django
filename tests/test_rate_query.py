@@ -12,14 +12,14 @@ class RateQueryTest(TestCase):
         response = self.client.post(
             '/api/rate/', data=json.dumps(data), content_type='application/json')
         self.assertEqual(response.status_code,  200)
-        self.assertTrue(response.json, 1750)
+        self.assertEqual(response.json(), 1750)
 
     def test_post_xml(self):
         data = {'start': '2015-07-01T07:00:00Z', 'end': '2015-07-01T12:00:00Z'}
         response = self.client.post(
             '/api/rate/', data=dicttoxml(data), content_type='application/xml')
         self.assertEqual(response.status_code,  200)
-        self.assertTrue(response.json, 1750)
+        self.assertEqual(response.json(), 1750)
 
     def test_post_invalid_data(self):
         data = {'start': '2015-07-01T07:00:00Z'}
@@ -43,7 +43,7 @@ class RateQueryTest(TestCase):
         data = {'start': '2015-07-01T07:00:00Z', 'end': '2015-07-01T12:00:00Z'}
         response = self.client.get('/api/rate/', data=data)
         self.assertEqual(response.status_code,  200)
-        self.assertTrue(response.json, 1750)
+        self.assertEqual(response.json(), 1750)
 
     def test_get_invalid_data(self):
         data = {'start': '2015-07-01T07:00:00Z'}

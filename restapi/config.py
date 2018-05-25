@@ -1,3 +1,4 @@
+# /usr/bin/python
 import json
 import calendar
 import pytz
@@ -8,7 +9,8 @@ rates = {}
 config = {}
 
 def read_file():
-    with open("./restapi/rates.json") as f:
+    global config
+    with open('./restapi/rates.json') as f:
         config = json.load(f)
     parse_config(config['rates'])
 
