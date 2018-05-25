@@ -1,5 +1,10 @@
+# /usr/bin/python
 
 class TimeRange(object):
+    """
+    TimeRange - represents a datetime.time range
+    """
+
     def __init__(self, start_time, end_time):
         """Create a new TimeRange
 

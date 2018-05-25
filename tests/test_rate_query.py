@@ -1,9 +1,11 @@
+# /usr/bin/python
 import json
 from dicttoxml import dicttoxml
-from restapi.views import RateQuery
+from restapi.views.rate_query import RateQuery
 from django.test import TestCase
 
-class TimeRangeTest(TestCase):
+
+class RateQueryTest(TestCase):
 
     def test_post_json(self):
         data = {'start': '2015-07-01T07:00:00Z', 'end': '2015-07-01T12:00:00Z'}

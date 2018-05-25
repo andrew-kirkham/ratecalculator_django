@@ -11,24 +11,6 @@ from rest_framework.parsers import JSONParser
 from rest_framework_xml.parsers import XMLParser
 from restapi.serializers.rate_request_serializer import RateRequestSerializer
 from restapi.rate_handler import RateHandler
-from restapi.config import config
-
-
-class RateList(APIView):
-    def get(self, request):
-        """Get all the rates configured
-
-        Arguments:
-            request {request} -- the HTTP request
-
-        Keyword Arguments:
-            format {format} -- Format to return the rates in (default: {None})
-
-        Returns:
-            Response -- a Response containing the configured rates
-        """
-
-        return Response(config)
 
 
 class RateQuery(APIView):
